@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Compressor - Minify and Compress CSS Online</title>
+    <meta name="description" content="Free online CSS compressor and minifier. Compress your CSS code into multi-line or single-line format. Remove whitespace and comments to reduce file size.">
+    <meta name="keywords" content="css compressor, css minifier, minify css, compress css, css optimizer, css cleaner">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="CSS Compressor">
+    <link rel="canonical" href="https://example.com/compress-css.html">
+    <meta property="og:title" content="CSS Compressor - Minify and Compress CSS Online">
+    <meta property="og:description" content="Free online CSS compressor and minifier. Compress your CSS into multi-line or single-line format.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/compress-css.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CSS Compressor - Minify and Compress CSS Online">
+    <meta name="twitter:description" content="Free online CSS compressor and minifier. Compress your CSS code instantly.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'></svg>" type="image/svg+xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "CSS Compressor",
+      "description": "Free online CSS compressor and minifier to reduce CSS file size by removing whitespace and comments.",
+      "url": "https://example.com/compress-css.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <style>
+        /* CSS Reset */
+        * {box-sizing:border-box;}
+
+        /* Custom Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+        .container {
+            width: 94%;
+            max-width: 800px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background-color: #2c2c2c;
+            border-radius: 8px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #444;
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #5a5a5a;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #6a6a6a;
+        }
+        pre {
+            background-color: #3a3a3a;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        h1, h2 {
+            border-bottom: 2px solid #5a5a5a;
+            padding-bottom: 10px;
+        }
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+            padding: 10px 20px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .notification.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CSS Compressor</h1>
+        <textarea id="cssInput" placeholder="Enter your CSS code here..."></textarea>
+        <br>
+        <button onclick="compressCSS()">Compress CSS (Multi Line)</button>
+        <button onclick="minifyCSS()">Compress CSS (One line)</button>
+        <button onclick="copyCSS()">Copy Output</button>
+        <h2>Result</h2>
+        <pre id="cssOutput"></pre>
+    </div>
+    <div id="notification" class="notification">CSS copied to clipboard!</div>
+
+    <script>
+        function compressCSS() {
+            const cssInput = document.getElementById('cssInput').value;
+            const compressedCSS = cssInput
+                .split('\n')
+                .map(line => {
+                    const trimmedLine = line.trim();
+                    if (trimmedLine.startsWith('/*') || trimmedLine.startsWith('*/')) {
+                        return trimmedLine;
+                    }
+                    return trimmedLine.replace(/\s+/g, ' ');
+                })
+                .filter(line => line.length > 0)
+                .join('\n')
+                .replace(/}\s*/g, '}\n')
+                .replace(/;\s*/g, ';')
+                .replace(/\{\s*/g, '{')
+                .replace(/\s*\}/g, '}')
+                .split('\n')
+                .map(line => line.trim())
+                .filter(line => line.length > 0)
+                .join('\n');
+
+            document.getElementById('cssOutput').textContent = compressedCSS;
+        }
+
+        function minifyCSS() {
+            const cssInput = document.getElementById('cssInput').value;
+            const minifiedCSS = cssInput
+                .replace(/\/\*[\s\S]*?\*\//g, '')
+                .replace(/\s+/g, ' ')
+                .replace(/;\s*/g, ';')
+                .replace(/\{\s*/g, '{')
+                .replace(/\s*\}/g, '}')
+                .trim();
+
+            document.getElementById('cssOutput').textContent = minifiedCSS;
+        }
+
+        async function copyCSS() {
+            const cssOutput = document.getElementById('cssOutput').textContent;
+            try {
+                await navigator.clipboard.writeText(cssOutput);
+                showNotification();
+            } catch (err) {
+                console.error('Copy error: ', err);
+            }
+        }
+
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

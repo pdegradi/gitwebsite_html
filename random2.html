@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random String Generator - Generate Custom Random Strings</title>
+    <meta name="description" content="Free online random string generator with customizable options. Set length, quantity, include numbers and special characters. Powered by seedrandom for reproducible results.">
+    <meta name="keywords" content="random string generator, custom random strings, random text generator, string generator with options, seedrandom">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Random String Generator">
+    <link rel="canonical" href="https://example.com/random2.html">
+    <meta property="og:title" content="Random String Generator - Generate Custom Random Strings">
+    <meta property="og:description" content="Free online random string generator with customizable length, quantity, and character options.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/random2.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Random String Generator - Generate Custom Random Strings">
+    <meta name="twitter:description" content="Free online random string generator with customizable options.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'></svg>" type="image/svg+xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Random String Generator",
+      "description": "Free online tool to generate customizable random strings with configurable length, quantity, and character sets.",
+      "url": "https://example.com/random2.html",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #e6edf3;
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            max-width: 480px;
+            margin: 0 auto 1.5rem;
+            background-color: #161b22;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+            color: #8b949e;
+            font-size: 0.875rem;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px 12px;
+            margin-bottom: 12px;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-size: 0.875rem;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #58a6ff;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            background-color: #238636;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-top: 8px;
+            transition: background-color 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2ea043;
+        }
+
+        .sections-container {
+            max-width: 820px;
+            margin: 0 auto;
+            display: grid;
+            /* grid-template-columns: 1fr; */
+            gap: 1.5rem;
+        }
+
+        /* @media (min-width: 992px) {
+            .sections-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        } */
+
+        .section {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 0.75rem 1rem;
+            background-color: #21262d;
+            border-bottom: 1px solid #30363d;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #e6edf3;
+            text-align: center;
+        }
+
+        .letters-header {
+            color: #58a6ff;
+        }
+
+        .letters-numbers-header {
+            color: #3fb950;
+        }
+
+        .all-chars-header {
+            color: #da3633;
+        }
+
+        .section-output {
+            padding: 0.75rem;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .string-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            margin-bottom: 2px;
+            transition: border-color 0.15s;
+        }
+
+        .string-row:hover {
+            border-color: #484f58;
+        }
+
+        .string-row .string-text {
+            flex: 1;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 1rem;
+            color: #e6edf3;
+            word-break: break-all;
+            user-select: text;
+            line-height: 1.4;
+            padding: 2px 4px;
+        }
+
+        .string-row .string-text::selection {
+            background-color: #ffd700;
+            color: #000000;
+        }
+
+        .copy-btn, .delete-btn {
+            flex-shrink: 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 2px;
+            border-radius: 3px;
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .copy-btn {
+            color: #8b949e;
+        }
+
+        .copy-btn:hover {
+            color: #58a6ff;
+            background-color: #1c2333;
+        }
+
+        .copy-btn.copied {
+            color: #3fb950;
+        }
+
+        .delete-btn {
+            color: #8b949e;
+        }
+
+        .delete-btn:hover {
+            color: #f85149;
+            background-color: #2d1e1e;
+        }
+
+        .copy-btn svg, .delete-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        #selection-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: rgba(22, 27, 34, 0.95);
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            color: #8b949e;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+        }
+
+        #selection-info.visible {
+            display: block;
+        }
+
+        #selection-info span {
+            color: #58a6ff;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random String Generator</h1>
+    <form id="stringForm">
+        <label for="length">String Length (10-100):</label>
+        <input type="number" id="length" name="length" min="10" max="100" value="64" required>
+        <label for="quantity">Number of Strings per section:</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="6" required>
+        <button type="submit">Generate Strings</button>
+    </form>
+    <div id="selection-info">Selected: <span id="char-count">0</span> characters</div>
+    <div class="sections-container">
+        <div class="section">
+            <div class="section-header letters-header">Letters Only</div>
+            <div id="output-letters" class="section-output"></div>
+        </div>
+        <div class="section">
+            <div class="section-header letters-numbers-header">Letters + Numbers</div>
+            <div id="output-letters-numbers" class="section-output"></div>
+        </div>
+        <div class="section">
+            <div class="section-header all-chars-header">Letters + Numbers + Special Chars</div>
+            <div id="output-all-chars" class="section-output"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+    <script>
+        document.getElementById('stringForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateAndDisplay();
+        });
+
+        function generateRandomNumber() {
+            const rng = new Math.seedrandom();
+            return rng();
+        }
+
+        function generateString(length, charSet) {
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += charSet.charAt(Math.floor(generateRandomNumber() * charSet.length));
+            }
+            return result;
+        }
+
+        function copyToClipboard(text, btn) {
+            const fallbackCopy = function(text) {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                ta.style.top = '-9999px';
+                document.body.appendChild(ta);
+                ta.focus();
+                ta.select();
+                try {
+                    document.execCommand('copy');
+                } catch (err) {
+                    console.error('Copy failed:', err);
+                }
+                document.body.removeChild(ta);
+            };
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showCopied(btn);
+                }).catch(function() {
+                    fallbackCopy(text);
+                    showCopied(btn);
+                });
+            } else {
+                fallbackCopy(text);
+                showCopied(btn);
+            }
+        }
+
+        function showCopied(btn) {
+            btn.classList.add('copied');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';
+            setTimeout(function() {
+                btn.classList.remove('copied');
+                btn.innerHTML = originalHTML;
+            }, 1500);
+        }
+
+        function generateAndDisplay() {
+            const length = parseInt(document.getElementById('length').value);
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const specialChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+            
+            const charSets = {
+                letters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+                lettersNumbers: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+                allChars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' + specialChars
+            };
+            
+            const outputs = {
+                letters: document.getElementById('output-letters'),
+                lettersNumbers: document.getElementById('output-letters-numbers'),
+                allChars: document.getElementById('output-all-chars')
+            };
+            
+            for (const [key, charSet] of Object.entries(charSets)) {
+                const output = outputs[key];
+                output.innerHTML = '';
+                
+                for (let i = 0; i < quantity; i++) {
+                    var str = generateString(length, charSet);
+
+                    var row = document.createElement('div');
+                    row.className = 'string-row';
+
+                    var textDiv = document.createElement('div');
+                    textDiv.className = 'string-text';
+                    textDiv.textContent = str;
+
+                    var copyBtn = document.createElement('button');
+                    copyBtn.className = 'copy-btn';
+                    copyBtn.title = 'Copy to clipboard';
+                    copyBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
+                    copyBtn.addEventListener('click', function(s, b) {
+                        return function() { copyToClipboard(s, b); };
+                    }(str, copyBtn));
+
+                    var deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'delete-btn';
+                    deleteBtn.title = 'Delete this row';
+                    deleteBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>';
+                    deleteBtn.addEventListener('click', function(r) {
+                        return function() { 
+                            r.style.transition = 'opacity 0.2s, height 0.2s, margin 0.2s';
+                            r.style.opacity = '0';
+                            r.style.height = '0';
+                            r.style.margin = '0';
+                            r.style.overflow = 'hidden';
+                            setTimeout(function() {
+                                if (r.parentNode) {
+                                    r.parentNode.removeChild(r);
+                                }
+                            }, 200);
+                        };
+                    }(row));
+
+                    row.appendChild(textDiv);
+                    row.appendChild(copyBtn);
+                    row.appendChild(deleteBtn);
+                    output.appendChild(row);
+                }
+            }
+        }
+
+        document.addEventListener('selectionchange', function() {
+            var sel = window.getSelection();
+            var info = document.getElementById('selection-info');
+            var count = document.getElementById('char-count');
+            var selectedText = sel ? sel.toString() : '';
+            var charLength = selectedText.length;
+            
+            count.textContent = charLength;
+            
+            if (charLength > 0) {
+                info.classList.add('visible');
+            } else {
+                info.classList.remove('visible');
+            }
+        });
+
+        document.addEventListener('mousedown', function() {
+            setTimeout(function() {
+                var sel = window.getSelection();
+                if (!sel || sel.toString().length === 0) {
+                    document.getElementById('selection-info').classList.remove('visible');
+                }
+            }, 10);
+        });
+
+        generateAndDisplay();
+    </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random String Generator - Generate Secure Random Strings Online</title>
+    <meta name="description" content="Free online random string generator. Generate cryptographically secure random strings with letters, numbers, and special characters. Copy individual strings with one click.">
+    <meta name="keywords" content="random string generator, secure random strings, random password generator, string generator, random text">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Random String Generator">
+    <link rel="canonical" href="https://example.com/random3.html">
+    <meta property="og:title" content="Random String Generator - Generate Secure Random Strings Online">
+    <meta property="og:description" content="Free online random string generator with letters, numbers, and special characters.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/random3.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Random String Generator - Generate Secure Random Strings Online">
+    <meta name="twitter:description" content="Free online random string generator with letters, numbers, and special characters.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'></svg>" type="image/svg+xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Random String Generator",
+      "description": "Free online tool to generate cryptographically secure random strings with customizable character sets.",
+      "url": "https://example.com/random3.html",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <style>
+	:root {
+        --font-base: 'Roboto Mono', monospace;
+        --font-size-base: 18px;
+        --color-background: #ffffff;
+        --color-surface: #f5f5f5;
+        --color-text: #121212;
+        --color-primary: #0d6efd;
+        --color-secondary: #6c757d;
+        --color-border: #e0e0e0;
+        --color-link: #0d6efd;
+        --color-link-hover: #0a58ca;
+    }
+
+    body.dark {
+        --color-background: #121212;
+        --color-surface: #1e1e1e;
+        --color-text: #e0e0e0;
+        --color-primary: #6ea8fe;
+        --color-secondary: #6c757d;
+        --color-border: #272727;
+        --color-link: #6ea8fe;
+        --color-link-hover: #6ea8fe;
+    }
+    
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;}
+    body{line-height:1.5;-webkit-font-smoothing:antialiased;font-family:var(--font-base,Arial,sans-serif);font-size:var(--font-size-base,16px);}
+    img,picture,video,canvas,svg{display:block;max-width:100%;}
+    input,button,textarea,select{font:inherit;}
+    p,h1,h2,h3,h4,h5,h6{overflow-wrap:break-word;}
+    #root,#__next{isolation:isolate;}
+
+    body{background-color:var(--color-background);color:var(--color-text);transition:background-color 0.3s ease,color 0.3s ease;}
+    a{color:var(--color-link);text-decoration:none;transition:color 0.3s ease;}
+    a:hover,a:focus{color:var(--color-link-hover);text-decoration:underline;}
+    header,footer,nav,section,article,aside{background-color:var(--color-surface);padding:1rem;border-bottom:1px solid var(--color-border);}
+    h1{font-size:calc(var(--font-size-base) * 2.5);color:var(--color-primary);margin-bottom:0.5rem;}
+    h2{font-size:calc(var(--font-size-base) * 2);color:var(--color-primary);margin-bottom:0.5rem;}
+    h3{font-size:calc(var(--font-size-base) * 1.75);color:var(--color-primary);margin-bottom:0.5rem;}
+    h4{font-size:calc(var(--font-size-base) * 1.5);color:var(--color-primary);margin-bottom:0.5rem;}
+    h5{font-size:calc(var(--font-size-base) * 1.25);color:var(--color-primary);margin-bottom:0.5rem;}
+    h6{font-size:var(--font-size-base) * 1;color:var(--color-primary);margin-bottom:0.5rem;}
+    p{margin-bottom:1rem;line-height:1.6;}
+    button{background-color:var(--color-primary);color:var(--color-background);border:none;padding:0.5rem 1rem;cursor:pointer;border-radius:4px;transition:background-color 0.3s ease;}
+    button:hover,button:focus{background-color:var(--color-link-hover);}
+    input,textarea,select{background-color:var(--color-surface);color:var(--color-text);border:1px solid var(--color-border);padding:0.5rem;border-radius:4px;transition:border-color 0.3s ease;}
+    input:focus,textarea:focus,select:focus{border-color:var(--color-primary);outline:none;}
+    ul,ol{margin-left:1.5rem;margin-bottom:1rem;}
+    li{margin-bottom:0.5rem;}
+    table{width:100%;border-collapse:collapse;margin-bottom:1rem;}
+    th,td{border:1px solid var(--color-border);padding:0.75rem;text-align:left;}
+    th{background-color:var(--color-border);color:var(--color-text);}
+    blockquote{border-left:4px solid var(--color-primary);padding-left:1rem;color:var(--color-text);margin:1rem 0;}
+    code,pre{background-color:var(--color-border);color:var(--color-primary);padding:0.2rem 0.4rem;border-radius:4px;}
+    pre{padding:1rem;overflow:auto;}
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap">
+</head>
+<body class="dark">
+    <h2 id="titolo"></h2>
+
+    <h3>Letters</h3>
+    <ul id="lista1"></ul>
+    <h3>Letters + numbers</h3>
+	<ul id="lista2"></ul>
+    <h3>Letters + numbers + special chars</h3>
+    <ul id="lista3"></ul>
+	<script>
+
+        function create_list_string_old(alfabeto, idlista, numero_stringhe, numero_caratteri)
+        {
+            var stringsList = document.getElementById(idlista);
+
+            for (var i = 0; i < numero_stringhe; i++) {
+                var randomString = '';
+                for (var j = 0; j < numero_caratteri; j++) {
+                    randomString += alfabeto.charAt(Math.floor(Math.random() * alfabeto.length));
+                }
+                var listItem = document.createElement('li');
+                listItem.textContent = "(" + i + ")\t" + randomString;
+                stringsList.appendChild(listItem);
+            }
+			
+        }
+
+        function create_list_string(alfabeto, idlista, numero_stringhe, numero_caratteri)
+        {
+            var stringsList = document.getElementById(idlista);
+
+            for (var i = 0; i < numero_stringhe; i++) {
+                
+                const randomArray = new Uint8Array(numero_caratteri);
+                crypto.getRandomValues(randomArray);
+                var randomString = '';
+                randomArray.forEach((number) => {
+                    randomString += alfabeto[number % alfabeto.length];
+                });
+                
+                var listItem = document.createElement('li');
+                listItem.innerHTML = "<span>(" + i + ") <a href='#' class='copy'>copy</a></span>\t<span class='randstring'></span>";
+                stringsList.appendChild(listItem);
+
+                var randStringSpan = listItem.querySelector('.randstring');
+                randStringSpan.textContent = randomString;
+
+                var copyLink = listItem.querySelector('.copy');
+                copyLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var randString = this.parentNode.nextElementSibling.textContent;
+                    navigator.clipboard.writeText(randString);
+                    
+                    var notification = document.createElement('div');
+                    notification.textContent = 'Copied: ' + randString;
+                    notification.style.position = 'fixed';
+                    notification.style.bottom = '20px';
+                    notification.style.right = '20px';
+                    notification.style.backgroundColor = '#4CAF50';
+                    notification.style.color = 'white';
+                    notification.style.padding = '10px';
+                    notification.style.borderRadius = '5px';
+                    document.body.appendChild(notification);
+
+                    setTimeout(function() {
+                        document.body.removeChild(notification);
+                    }, 3000);
+                });
+            }
+        }
+
+        window.onload = function() {
+
+            var numero_stringhe_da_generare = 5;
+            var lunghezza_stringha = 50;
+            var alfabeto1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            var alfabeto2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var alfabeto3 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~`|}{[]\:;?><,./-=';
+			
+            create_list_string(alfabeto1, "lista1", numero_stringhe_da_generare, lunghezza_stringha);
+            create_list_string(alfabeto2, "lista2", numero_stringhe_da_generare, lunghezza_stringha);
+            create_list_string(alfabeto3, "lista3", numero_stringhe_da_generare, lunghezza_stringha);
+
+            document.getElementById('titolo').innerHTML = "Random String (" + numero_stringhe_da_generare + " strings of " + lunghezza_stringha + " characters)";     
+        };
+    </script>
+</body>
+</html>

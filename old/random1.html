@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random String Generator - Generate Random Strings with Options</title>
+    <meta name="description" content="Free online random string generator. Choose letters, numbers, and special characters. Set the count and length of strings. Cryptographically secure generation.">
+    <meta name="keywords" content="random string generator, random text, secure random strings, password generator, string generator">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Random String Generator">
+    <link rel="canonical" href="https://example.com/random1.html">
+    <meta property="og:title" content="Random String Generator - Generate Random Strings with Options">
+    <meta property="og:description" content="Free online random string generator with customizable character types and length.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/random1.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Random String Generator - Generate Random Strings with Options">
+    <meta name="twitter:description" content="Free online random string generator with customizable character types and length.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'></svg>" type="image/svg+xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Random String Generator",
+      "description": "Free online tool to generate random strings with configurable character types, count, and length.",
+      "url": "https://example.com/random1.html",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <style>
+        body{font-family:Arial,sans-serif;line-height:1.6;margin:0;padding:20px;background-color:#f4f4f4}
+        h1{color:#333;text-align:center;margin-bottom:20px}
+        div{margin-bottom:15px}
+        label{display:inline-block;margin-right:10px}
+        input[type="checkbox"]{margin-right:5px}
+        input[type="text"],input[type="number"]{width:200px;padding:5px;border:1px solid #ddd;border-radius:4px}
+        button{background-color:#4CAF50;color:#fff;padding:10px 15px;border:none;border-radius:4px;cursor:pointer;font-size:16px}
+        button:hover{background-color:#45a049}
+        #output{margin-top:20px;padding:10px;background-color:#fff;border:1px solid #ddd;border-radius:4px}
+    </style>
+</head>
+<body>
+    <h1>Random String Generator</h1>
+    
+    <div>
+        <label><input type="checkbox" id="useNumbers" checked> Use numbers</label>
+        <label><input type="checkbox" id="useLetters" checked> Use letters</label>
+        <label><input type="checkbox" id="useSpecialChars"> Use special characters</label>
+    </div>
+    
+    <div>
+        <label for="specialChars">Special characters:</label>
+        <input type="text" id="specialChars" value="!@#$%^&*()_+-=[]{}|;:,.?">
+    </div>
+    
+    <div>
+        <label for="stringCount">Number of strings:</label>
+        <input type="number" id="stringCount" min="1" value="10" >
+    </div>
+    
+    <div>
+        <label for="stringLength">Length of each string:</label>
+        <input type="number" id="stringLength" min="1" value="20">
+    </div>
+    
+    <button id="generateBtn">Generate Strings</button>
+    
+    <div id="output"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const generateBtn = document.getElementById('generateBtn');
+            const output = document.getElementById('output');
+
+            generateBtn.addEventListener('click', generateStrings);
+
+            function generateStrings() {
+                const useNumbers = document.getElementById('useNumbers').checked;
+                const useLetters = document.getElementById('useLetters').checked;
+                const useSpecialChars = document.getElementById('useSpecialChars').checked;
+                const specialChars = document.getElementById('specialChars').value;
+                const stringCount = parseInt(document.getElementById('stringCount').value);
+                const stringLength = parseInt(document.getElementById('stringLength').value);
+
+                let charset = '';
+                if (useNumbers) charset += '0123456789';
+                if (useLetters) charset += 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                if (useSpecialChars) charset += specialChars;
+
+                if (charset === '') {
+                    output.innerHTML = 'Select at least one character type to use.';
+                    return;
+                }
+
+                let result = '';
+                for (let i = 0; i < stringCount; i++) {
+                    result += generateRandomString(stringLength, charset) + '<br>';
+                }
+
+                output.innerHTML = result;
+            }
+
+            function generateRandomString(length, charset) {
+                const timestamp = new Date().getTime();
+                const array = new Uint8Array(length);
+                crypto.getRandomValues(array);
+                const seed = array.reduce((acc, val) => acc + val, 0) + timestamp;
+                return Array.from({length}, () => charset[Math.floor(seed * Math.random()) % charset.length]).join('');
+            }
+        });
+
+    </script>
+</body>
+</html>

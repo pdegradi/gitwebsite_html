@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Splitter - Split Images into Equal Slices Online</title>
+  <meta name="description" content="Free online image splitter tool. Upload an image and split it into equal horizontal slices. Download all slices as a ZIP file. No server upload required.">
+  <meta name="keywords" content="image splitter, slice image, image cutter, split image online, image slicing tool">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Image Splitter">
+  <link rel="canonical" href="https://example.com/image-splitter.html">
+  <meta property="og:title" content="Image Splitter - Split Images into Equal Slices Online">
+  <meta property="og:description" content="Free online image splitter tool. Upload an image and split it into equal horizontal slices. Download all slices as a ZIP file.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com/image-splitter.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Image Splitter - Split Images into Equal Slices Online">
+  <meta name="twitter:description" content="Free online image splitter tool. Upload an image and split it into equal horizontal slices.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'></svg>" type="image/svg+xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Image Splitter",
+    "description": "Free online tool to split images into equal horizontal slices and download them as a ZIP file.",
+    "url": "https://example.com/image-splitter.html",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: #e6edf3;
+      letter-spacing: -0.02em;
+    }
+
+    .dropzone {
+      border: 2px dashed #30363d;
+      border-radius: 12px;
+      padding: 3rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #161b22;
+      margin-bottom: 1.5rem;
+    }
+
+    .dropzone:hover,
+    .dropzone.dragover {
+      border-color: #58a6ff;
+      background: #1c2333;
+    }
+
+    .dropzone svg {
+      width: 48px;
+      height: 48px;
+      color: #484f58;
+      margin-bottom: 1rem;
+    }
+
+    .dropzone p {
+      color: #8b949e;
+      font-size: 0.95rem;
+    }
+
+    .dropzone .browse {
+      color: #58a6ff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .dropzone input {
+      display: none;
+    }
+
+    .info {
+      text-align: center;
+      padding: 1rem;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+      color: #8b949e;
+      display: none;
+    }
+
+    .info.visible {
+      display: block;
+    }
+
+    .info span {
+      color: #e6edf3;
+      font-weight: 500;
+    }
+
+    .preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .preview-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #30363d;
+      background: #161b22;
+    }
+
+    .preview-item img {
+      width: 100%;
+      display: block;
+    }
+
+    .preview-item .label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.35rem 0.5rem;
+      background: rgba(13, 17, 23, 0.85);
+      font-size: 0.75rem;
+      color: #c9d1d9;
+      text-align: center;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    button svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .btn-download {
+      background: #238636;
+      color: #ffffff;
+      display: none;
+    }
+
+    .btn-download:hover {
+      background: #2ea043;
+    }
+
+    .btn-download.visible {
+      display: flex;
+    }
+
+    .btn-reset {
+      background: #21262d;
+      color: #c9d1d9;
+      border: 1px solid #30363d;
+      display: none;
+    }
+
+    .btn-reset:hover {
+      background: #30363d;
+      border-color: #8b949e;
+    }
+
+    .btn-reset.visible {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .preview {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      button {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Image Splitter</h1>
+    </header>
+
+    <div class="dropzone" id="dropzone">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
+      </svg>
+      <p>Drag an image here or <span class="browse">browse files</span></p>
+      <input type="file" id="file-input" accept="image/*">
+    </div>
+
+    <div class="info" id="info"></div>
+
+    <div class="preview" id="preview"></div>
+
+    <div class="actions">
+      <button class="btn-download" id="download-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        Download ZIP
+      </button>
+      <button class="btn-reset" id="reset-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        New image
+      </button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script>
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('file-input');
+    const info = document.getElementById('info');
+    const preview = document.getElementById('preview');
+    const downloadBtn = document.getElementById('download-btn');
+    const resetBtn = document.getElementById('reset-btn');
+
+    let slices = [];
+
+    dropzone.addEventListener('click', () => fileInput.click());
+
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('dragover');
+    });
+
+    dropzone.addEventListener('dragleave', () => {
+      dropzone.classList.remove('dragover');
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith('image/')) {
+        processImage(file);
+      }
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files[0]) {
+        processImage(fileInput.files[0]);
+      }
+    });
+
+    function processImage(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          splitImage(img, file.name);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function splitImage(img, fileName) {
+      slices = [];
+      preview.innerHTML = '';
+
+      const width = img.width;
+      const height = img.height;
+      const sliceSize = width;
+      const totalSlices = Math.ceil(height / sliceSize);
+
+      info.innerHTML = `<span>${totalSlices}</span> slice${totalSlices > 1 ? `s` : ''} of <span>${width}x${sliceSize}</span> px${totalSlices > 1 ? ` (last: ${width}x${height - (totalSlices - 1) * sliceSize} px)` : ''}`;
+      info.classList.add('visible');
+
+      for (let i = 0; i < totalSlices; i++) {
+        const canvas = document.createElement('canvas');
+        const sliceHeight = Math.min(sliceSize, height - i * sliceSize);
+        canvas.width = width;
+        canvas.height = sliceHeight;
+
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, i * sliceSize, width, sliceHeight, 0, 0, width, sliceHeight);
+
+        const dataUrl = canvas.toDataURL('image/png');
+        slices.push({ dataUrl, name: `slice_${String(i + 1).padStart(3, '0')}.png` });
+
+        const item = document.createElement('div');
+        item.className = 'preview-item';
+        item.innerHTML = `<img src="${dataUrl}" alt="Slice ${i + 1}"><div class="label">${i + 1} / ${totalSlices}</div>`;
+        preview.appendChild(item);
+      }
+
+      downloadBtn.classList.add('visible');
+      resetBtn.classList.add('visible');
+    }
+
+    downloadBtn.addEventListener('click', async () => {
+      if (slices.length === 0) return;
+
+      const zip = new JSZip();
+      slices.forEach((slice) => {
+        const base64 = slice.dataUrl.split(',')[1];
+        zip.file(slice.name, base64, { base64: true });
+      });
+
+      const blob = await zip.generateAsync({ type: 'blob' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'slices.zip';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    resetBtn.addEventListener('click', () => {
+      slices = [];
+      preview.innerHTML = '';
+      info.classList.remove('visible');
+      downloadBtn.classList.remove('visible');
+      resetBtn.classList.remove('visible');
+      fileInput.value = '';
+    });
+  </script>
+</body>
+</html>

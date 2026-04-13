@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Formatter - Format and Beautify SQL Queries Online</title>
+    <meta name="description" content="Free online SQL formatter and beautifier. Supports MySQL and T-SQL dialects. Format your SQL queries with proper indentation and keyword casing instantly.">
+    <meta name="keywords" content="sql formatter, sql beautifier, format sql query, mysql formatter, t-sql formatter, sql pretty printer">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="SQL Formatter">
+    <link rel="canonical" href="https://example.com/format-sql.html">
+    <meta property="og:title" content="SQL Formatter - Format and Beautify SQL Queries Online">
+    <meta property="og:description" content="Free online SQL formatter supporting MySQL and T-SQL. Format your SQL queries with proper indentation instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/format-sql.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SQL Formatter - Format and Beautify SQL Queries Online">
+    <meta name="twitter:description" content="Free online SQL formatter supporting MySQL and T-SQL dialects.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'></svg>" type="image/svg+xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SQL Formatter",
+      "description": "Free online SQL formatter and beautifier supporting MySQL and T-SQL dialects.",
+      "url": "https://example.com/format-sql.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <script src="https://unpkg.com/sql-formatter@2.3.2/dist/sql-formatter.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0 10px;
+        }
+        .container {
+            background: #2b2b2b;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        textarea, select {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            background-color: #333;
+            color: #e0e0e0;
+            border: 1px solid #555;
+            box-sizing: border-box;
+        }
+        select {
+            height: auto;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+        }
+        pre {
+            background: #2b2b2b;
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 10px;
+            text-align: left;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #e0e0e0;
+            box-sizing: border-box;
+        }
+        @media (max-width: 600px) {
+            textarea, button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SQL Formatter</h1>
+        <select id="sqlDialect">
+            <option value="sql">MySQL</option>
+            <option value="tsql">T-SQL</option>
+        </select>
+        <textarea id="sqlInput" placeholder="Enter your SQL query here..."></textarea>
+        <button onclick="formatSQL()">Format SQL</button>
+        <pre id="formattedSQL"></pre>
+    </div>
+    <script>
+        function formatSQL() {
+            const sqlInput = document.getElementById('sqlInput').value;
+            const dialect = document.getElementById('sqlDialect').value;
+            const formattedSQL = window.sqlFormatter.format(sqlInput, {
+                language: dialect,
+                indent: '    ',
+                keywordCase: 'upper',
+                linesBetweenQueries: 2,
+                newlineBeforeOpenParen: true,
+                newlineBeforeCloseParen: true,
+                newlineBeforeComma: false,
+                newlineAfterComma: true,
+                newlineBeforeKeyword: ['FROM', 'JOIN', 'WHERE', 'ORDER BY', 'GROUP BY'],
+                newlineBeforeSemicolon: true
+            });
+            document.getElementById('formattedSQL').textContent = formattedSQL;
+        }
+    </script>
+</body>
+</html>
