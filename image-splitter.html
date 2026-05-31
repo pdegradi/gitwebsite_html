@@ -321,18 +321,26 @@
       const height = img.height;
       const sliceSize = width;
       const totalSlices = Math.ceil(height / sliceSize);
+      const lastSliceContentHeight = height - (totalSlices - 1) * sliceSize;
+      const isLastPadded = lastSliceContentHeight < sliceSize;
 
-      info.innerHTML = `<span>${totalSlices}</span> slice${totalSlices > 1 ? `s` : ''} of <span>${width}x${sliceSize}</span> px${totalSlices > 1 ? ` (last: ${width}x${height - (totalSlices - 1) * sliceSize} px)` : ''}`;
+      info.innerHTML = `<span>${totalSlices}</span> slice${totalSlices > 1 ? `s` : ''} of <span>${width}x${sliceSize}</span> px${isLastPadded ? ` (last padded: ${width}x${lastSliceContentHeight} px content + black fill)` : ''}`;
       info.classList.add('visible');
 
       for (let i = 0; i < totalSlices; i++) {
         const canvas = document.createElement('canvas');
-        const sliceHeight = Math.min(sliceSize, height - i * sliceSize);
+        // All slices are always square (width x width)
         canvas.width = width;
-        canvas.height = sliceHeight;
+        canvas.height = sliceSize;
 
         const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, i * sliceSize, width, sliceHeight, 0, 0, width, sliceHeight);
+        // Fill with black first (handles padding for the last slice automatically)
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, width, sliceSize);
+
+        // Draw image content at the top (y=0)
+        const sliceContentHeight = Math.min(sliceSize, height - i * sliceSize);
+        ctx.drawImage(img, 0, i * sliceSize, width, sliceContentHeight, 0, 0, width, sliceContentHeight);
 
         const dataUrl = canvas.toDataURL('image/png');
         slices.push({ dataUrl, name: `slice_${String(i + 1).padStart(3, '0')}.png` });
